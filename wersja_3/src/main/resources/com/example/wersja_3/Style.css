@@ -1,0 +1,24 @@
+.progress-bar {
+    -fx-border-width: 0;
+    -fx-background-color: #60d5FA;
+    -fx-box-border: #60d5FA;
+    -fx-accent:  #60d5FA;
+    -fx-background-radius: 0 0 0 0;
+    -fx-border-radius: 0 0 0 0;
+    -fx-progress-color: #60d5FA;
+}
+.progress-bar .track {
+    -fx-text-box-border: #a9a9a9;
+    -fx-control-inner-background: #a9a9a9;
+
+}
+.tool-bar {
+    -fx-accent:  #60d5FA;
+}
+.tool-bar .tool-bar-overflow-button .arrow {
+    -fx-background-color: #60d5FA;
+}
+.tool-bar .context-menu {
+    -fx-background-color: #a9a9a9;
+}
+

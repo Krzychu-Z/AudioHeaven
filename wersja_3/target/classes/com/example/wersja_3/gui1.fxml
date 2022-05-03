@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXSlider?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="600.0" style="-fx-background-color: #a9a9a9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.wersja_3.PlayerController">
+   <children>
+      <SplitPane dividerPositions="0.4999999999999999" prefHeight="340.0" prefWidth="600.0" style="-fx-background-color: #a9a9a9;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #545454; -fx-border-color: #545454; -fx-background-radius: 10 10 10 10; -fx-border-radius: 10 10 10 10;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="170.0">
+                     <children>
+                        <Label text="Twoje playlisty " textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="10.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Separator layoutX="11.0" layoutY="38.0" prefWidth="200.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" />
+                        <Button fx:id="addPlaylistButton" layoutX="192.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPlaylistMethod" prefHeight="22.0" prefWidth="38.0" style="-fx-background-color: #545454;" textAlignment="CENTER" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="80.0" minHeight="60.0" style="-fx-background-color: #545454; -fx-background-radius: 10 10 10 10; -fx-border-radius: 10 10 10 10;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <Button fx:id="computerSearchButton" layoutX="190.0" layoutY="18.0" mnemonicParsing="false" onAction="#fileSearchMethod" style="-fx-background-color: #00BFFF; -fx-background-radius: 7 7 7 7; -fx-border-radius: 7 7 7 7;" text="Szukaj" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="14.0" layoutY="22.0" prefHeight="18.0" prefWidth="136.0" text="Zgraj utwór z komputera" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="15.0">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="80.0" minHeight="60.0" style="-fx-background-color: #545454; -fx-background-radius: 10 10 10 10; -fx-border-radius: 10 10 10 10;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0">
+                     <children>
+                        <TextField fx:id="linkTextField" promptText="Wklej link do utworu tutaj" style="-fx-background-color: #bebebe; -fx-border-color: #bebebe; -fx-background-radius: 7 7 7 7; -fx-border-radius: 7 7 7 7; -fx-prompt-text-fill: white" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="15.0" />
+                        <Button fx:id="internetSearchButton" layoutX="190.0" layoutY="18.0" mnemonicParsing="false" onAction="#linkSearchMetod" style="-fx-background-color: #00BFFF; -fx-background-radius: 7 7 7 7; -fx-border-radius: 7 7 7 7;" text="Szukaj" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0">
+               <children>
+                  <AnchorPane layoutX="20.0" layoutY="10.0" maxHeight="450.0" prefHeight="425.0" style="-fx-background-color: #545454; -fx-border-color: #545454; -fx-background-radius: 10 10 10 10; -fx-border-radius: 10 10 10 10;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="13.0" layoutY="8.0" prefHeight="35.0" prefWidth="232.0" text="Live Equalizer" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Separator layoutX="14.0" layoutY="41.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+                        <Separator layoutX="48.0" layoutY="67.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="70.0" />
+                        <Separator layoutX="125.0" layoutY="69.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="70.0" />
+                        <Separator layoutX="200.0" layoutY="69.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="75.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="70.0" />
+                        <Label layoutX="30.0" layoutY="55.0" text="-15 dB" textFill="WHITE" AnchorPane.leftAnchor="33.0" />
+                        <Label layoutX="185.0" layoutY="55.0" text="+15 dB" textFill="WHITE" AnchorPane.rightAnchor="39.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="55.0" text="0 dB" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="115.0" />
+                        <Label layoutX="24.0" layoutY="70.0" text="Hz" textFill="WHITE" AnchorPane.leftAnchor="20.0" />
+                        <Label layoutX="219.0" layoutY="70.0" text="dB" textFill="WHITE" AnchorPane.rightAnchor="20.0" />
+                        <JFXSlider fx:id="equalizer32Slider" blockIncrement="1.0" layoutX="50.0" layoutY="90.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="90.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer64Slider" blockIncrement="1.0" layoutX="51.0" layoutY="120.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="115.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer130Slider" blockIncrement="1.0" layoutX="50.0" layoutY="149.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="140.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer270Slider" blockIncrement="1.0" layoutX="51.0" layoutY="179.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="165.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer650Slider" blockIncrement="1.0" layoutX="51.0" layoutY="209.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="190.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer1kSlider" blockIncrement="1.0" layoutX="53.0" layoutY="221.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="215.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer2kSlider" blockIncrement="1.0" layoutX="50.0" layoutY="246.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="240.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer4kSlider" blockIncrement="1.0" layoutX="51.0" layoutY="271.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="265.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer8kSlider" blockIncrement="1.0" layoutX="53.0" layoutY="296.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="290.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <JFXSlider fx:id="equalizer16kSlider" blockIncrement="1.0" layoutX="51.0" layoutY="321.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="315.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </JFXSlider>
+                        <Label layoutX="21.0" layoutY="97.0" text="32" textFill="WHITE" />
+                        <Label layoutX="21.0" layoutY="122.0" text="64" textFill="WHITE" />
+                        <Label layoutX="17.0" layoutY="147.0" text="130" textFill="WHITE" />
+                        <Label layoutX="17.0" layoutY="172.0" text="270" textFill="WHITE" />
+                        <Label layoutX="17.0" layoutY="197.0" text="650" textFill="WHITE" />
+                        <Label layoutX="21.0" layoutY="222.0" text="1k" textFill="WHITE" />
+                        <Label layoutX="21.0" layoutY="247.0" text="2k" textFill="WHITE" />
+                        <Label layoutX="21.0" layoutY="272.0" text="4k" textFill="WHITE" />
+                        <Label layoutX="21.0" layoutY="297.0" text="8k" textFill="WHITE" />
+                        <Label layoutX="17.0" layoutY="322.0" text="16k" textFill="WHITE" />
+                        <Button fx:id="resetEqualizerButton" layoutX="103.0" layoutY="449.0" mnemonicParsing="false" onAction="#resetEqualizerMethod" style="-fx-background-color: #00BFFF; -fx-background-radius: 7 7 7 7; -fx-border-radius: 7 7 7 7;" text="Reset" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="valueEqualizer32Label" layoutX="225.0" layoutY="97.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer64Label" layoutX="223.0" layoutY="122.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer130Label" layoutX="224.0" layoutY="147.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer270Label" layoutX="223.0" layoutY="172.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer650Label" layoutX="221.0" layoutY="197.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer1kLabel" layoutX="227.0" layoutY="222.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer2kLabel" layoutX="220.0" layoutY="249.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer4kLabel" layoutX="225.0" layoutY="272.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer8kLabel" layoutX="222.0" layoutY="297.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer16kLabel" layoutX="220.0" layoutY="320.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <ProgressBar fx:id="progressBar" layoutY="360.0" prefHeight="22.0" prefWidth="600.0" progress="0.44" stylesheets="@Style.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <AnchorPane layoutY="350.0" minWidth="150.0" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #4d4d4d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0">
+         <children>
+            <Label fx:id="actualTimeLabel" layoutX="14.0" layoutY="17.0" text="00:26" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="50.0" prefHeight="50.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <SplitPane dividerPositions="0.2517942583732058" prefHeight="50.0" prefWidth="336.0" style="-fx-background-color: #4d4d4d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-36.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="250.0">
+                           <children>
+                              <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="6.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0" />
+                              <Label fx:id="titleLabel" prefHeight="29.0" prefWidth="231.0" text="TitleTitleTitleTitleTitleTitleTitleTitle" textFill="#60d5fa" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="10.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="49.0" prefWidth="250.0">
+                           <children>
+                              <ToolBar layoutX="3.0" prefHeight="49.0" prefWidth="219.0" style="-fx-background-color: #4d4d4d; -fx-border-color: #4d4d4d;" stylesheets="@Style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                    <Button fx:id="previousSongButton" mnemonicParsing="false" onAction="#previousSongMethod" prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #4d4d4d;">
+                                       <graphic>
+                                          <ImageView fitHeight="27.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@previous.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="-2.0" />
+                                       </padding>
+                                    </Button>
+                                    <Button fx:id="back10Button" mnemonicParsing="false" onAction="#back10Method" prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #4d4d4d;">
+                                       <graphic>
+                                          <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@back10.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="-2.0" />
+                                       </padding>
+                                    </Button>
+                                  <Button fx:id="play2Button" mnemonicParsing="false" onAction="#playMethod" prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #4d4d4d;">
+                                       <graphic>
+                                          <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@play.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="-2.0" />
+                                       </padding>
+                                    </Button>
+                                    <Button fx:id="repeatButton" mnemonicParsing="false" onAction="#repeatMethod" prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #4d4d4d;">
+                                       <graphic>
+                                          <ImageView fitHeight="27.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@repear.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="-2.0" />
+                                       </padding>
+                                    </Button>
+                                    <Button fx:id="forward10Button" mnemonicParsing="false" onAction="#forward10Method" prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #4d4d4d;">
+                                       <graphic>
+                                          <ImageView fitHeight="27.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@forward10.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="-2.0" />
+                                       </padding>
+                                    </Button>
+                                    <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextSongMethod" prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #4d4d4d;">
+                                       <graphic>
+                                          <ImageView fitHeight="27.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@next.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="-2.0" />
+                                       </padding>
+                                    </Button>
+                                </items>
+                              </ToolBar>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="400.0" layoutY="352.0" prefHeight="67.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Pane layoutY="25.0" prefHeight="76.0" prefWidth="200.0" style="-fx-background-color: #4d4d4d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="17.0">
+               <children>
+                  <Label fx:id="endTimeLabel" layoutX="152.0" layoutY="15.0" text="00:26" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="muteButton" layoutX="3.0" layoutY="8.0" mnemonicParsing="false" onAction="#muteMethod" prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #4d4d4d;">
+                     <padding>
+                        <Insets left="-2.0" />
+                     </padding>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@volume.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <JFXSlider fx:id="volumeSlider" layoutX="44.0" layoutY="11.0" prefHeight="30.0" prefWidth="87.0" style="-jfx-default-thumb: #60d5FA;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </JFXSlider>
+                  <Separator layoutX="135.0" layoutY="10.0" orientation="VERTICAL" prefHeight="30.0" prefWidth="17.0" />
+                  <Separator layoutX="1.0" layoutY="9.0" orientation="VERTICAL" prefHeight="30.0" prefWidth="17.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="-50.0" />
+                     </padding>
+                  </Separator>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
