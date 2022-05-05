@@ -1,10 +1,10 @@
-package com.example.audioheaven;
+package com.example.wersja_3;
 
 import java.io.IOException;
 import java.util.*;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import static com.example.audioheaven.Utilities.*;
+import static com.example.wersja_3.Utilities.*;
 
 
 /*  frame: list of values of a song

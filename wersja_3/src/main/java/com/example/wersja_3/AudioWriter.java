@@ -1,12 +1,7 @@
-package com.example.audioheaven;
+package com.example.wersja_3;
 
-import jaco.mp3.player.MP3Player;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import javax.sound.sampled.*;
 
 public class AudioWriter implements Runnable {

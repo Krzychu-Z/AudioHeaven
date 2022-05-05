@@ -1,6 +1,4 @@
-package com.example.audioheaven;
-
-import jaco.mp3.player.MP3Player;
+package com.example.wersja_3;
 
 import java.io.File;
 import java.io.IOException;
