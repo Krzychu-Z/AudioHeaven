@@ -1,6 +1,7 @@
 package com.example.wersja_3;
 
 import com.jfoenix.controls.JFXSlider;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,20 +39,11 @@ public class PlayerController {
     }
 
     public void changeToMute() {
-        Image mute = new Image(Objects.requireNonNull(getClass().getResourceAsStream("mute.png")));
-        ImageView muteIcon = new ImageView(mute);
-        muteButton.setGraphic(muteIcon);
-        volumeBeforeMute = volumeSlider.getValue();
-        volumeSlider.setValue(0);
-        isMute = true;
+
     }
 
     public void changeToVolume() {
-        Image volume = new Image(Objects.requireNonNull(getClass().getResourceAsStream("volume.png")));
-        ImageView volumeIcon = new ImageView(volume);
-        muteButton.setGraphic(volumeIcon);
-        volumeSlider.setValue(volumeBeforeMute);
-        isMute = false;
+
     }
 
     public String getTitle(String locationString) {
@@ -320,7 +312,11 @@ public class PlayerController {
         for (int z = 0; z < namesOfSliders.length; z++) {
             if (id.equals(namesOfSliders[z].getId())) {
                 double value = namesOfSliders[z].getValue();
-                String roundedValued = String.format("%.0f", value);
+                namesOfSliders[z].setValueFactory(slider -> Bindings.createStringBinding(
+                                        () -> (String.format("%.1f", (double) slider.getValue())),
+                                        slider.valueProperty()
+                                ));
+                String roundedValued = String.format("%.1f", value);
                 equalizerLabelValues[z].setText(roundedValued);
             }
         }
