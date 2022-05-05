@@ -18,7 +18,7 @@ public class Player{
         for (int i = 0; i < placeHold; i++) {
             dj.setAmplifying(amplifying);
             double [][] pointing = line.poll();
-            double [] result = dj.equaliseMe(pointing, amplifying, 48000);
+            double [] result = dj.equaliseMe(pointing, amplifying, (int)dj.sampleReader.getFormat().getSampleRate(), 100);
 
             AudioWriter audioWriter;
             try {

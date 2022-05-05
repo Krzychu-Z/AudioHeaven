@@ -37,10 +37,6 @@ public class AudioWriter implements Runnable {
         }
     }
 
-    public void write(double[] interleavedSamples) throws IOException {
-        writeInterleavedSamples(interleavedSamples, interleavedSamples.length);
-    }
-
     public void writeInterleavedSamples(double[] interleavedSamples, int sampleCount) throws IOException {
         int numBytes = sampleCount * (format.getSampleSizeInBits() / 8);
         if (bytes == null || numBytes > bytes.length)
@@ -93,9 +89,5 @@ public class AudioWriter implements Runnable {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-
     }
 }
