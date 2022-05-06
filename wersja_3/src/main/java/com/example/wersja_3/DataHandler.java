@@ -67,7 +67,7 @@ public class DataHandler {
         long nbBytes = numSamples * (format.getSampleSizeInBits() / 8) *
                 format.getChannels();
         if (nbBytes > Integer.MAX_VALUE)
-            throw new IllegalArgumentException("too many samples");
+            throw new IllegalArgumentException("Too perfectly recorded (too many samples)");
         // allocate a byte buffer
         byte[] inBuffer = new byte[(int)nbBytes];
         // read bytes from audio file
@@ -75,23 +75,5 @@ public class DataHandler {
         // decode bytes into samples. Supported encodings are:
         // PCM-SIGNED, PCM-UNSIGNED, A-LAW, U-LAW
         decodeBytes(inBuffer, samples);
-    }
-
-    public void getChannelSamples(int channel, double[] interleavedSamples, double[] channelSamples) {
-        int nbChannels = format.getChannels();
-        for (int i = 0; i < channelSamples.length; i++) {
-            channelSamples[i] = interleavedSamples[nbChannels*i + channel];
-        }
-    }
-
-    public void getStereoSamples(double[] leftSamples, double[] rightSamples)
-            throws IOException {
-        long sampleCount = getSampleCount();
-        double[] interleavedSamples = new double[(int)sampleCount*2];
-        getInterleavedSamples(0, sampleCount, interleavedSamples);
-        for (int i = 0; i < leftSamples.length; i++) {
-            leftSamples[i] = interleavedSamples[2*i];
-            rightSamples[i] = interleavedSamples[2*i+1];
-        }
     }
 }
