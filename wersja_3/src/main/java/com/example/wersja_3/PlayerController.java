@@ -43,20 +43,11 @@ public class PlayerController{
     }
 
     public void changeToMute() {
-        Image mute = new Image(Objects.requireNonNull(getClass().getResourceAsStream("mute.png")));
-        ImageView muteIcon = new ImageView(mute);
-        muteButton.setGraphic(muteIcon);
-        volumeBeforeMute = volumeSlider.getValue();
-        volumeSlider.setValue(0);
-        isMute = true;
+        
     }
 
     public void changeToVolume() {
-        Image volume = new Image(Objects.requireNonNull(getClass().getResourceAsStream("volume.png")));
-        ImageView volumeIcon = new ImageView(volume);
-        muteButton.setGraphic(volumeIcon);
-        volumeSlider.setValue(volumeBeforeMute);
-        isMute = false;
+        
     }
 
     public String getTitle(String locationString) {
@@ -322,11 +313,6 @@ public class PlayerController{
                 valueEqualizer512Label, valueEqualizer1kLabel, valueEqualizer2kLabel, valueEqualizer4kLabel,
                 valueEqualizer8kLabel, valueEqualizer16kLabel};
 
-        for (int z = 0; z < namesOfSliders.length; z++) {
-            namesOfSliders[z].setValue(0);
-            equalizerLabelValues[z].setText("0");
-
-        }
     }
 
     @FXML
