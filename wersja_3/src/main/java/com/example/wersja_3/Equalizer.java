@@ -40,8 +40,8 @@ public class Equalizer{
        samples: array of interleaved data (full song)
        frameSize: size of frame (MUST BE power-of-2 integer)
     */
-    public Queue<double [][]> frameFeeder(double [] samples, int frameSize) {
-        Queue<double [][]> liveMusic = new LinkedList<>();
+    public List<double [][]> frameFeeder(double [] samples, int frameSize) {
+        List<double [][]> liveMusic = new ArrayList<>();
 
         for (int k = 0; k < samples.length; k = k + frameSize) {
             double [][] complexSamples = new double[frameSize][2];

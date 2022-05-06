@@ -13,11 +13,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
-public class PlayerController {
+public class PlayerController{
 
     private String path;
     private boolean isPlaying = false;
@@ -88,7 +92,7 @@ public class PlayerController {
     private Label endTimeLabel;
 
     @FXML
-    private JFXSlider equalizer130Slider;
+    private JFXSlider equalizer128Slider;
 
     @FXML
     private JFXSlider equalizer16kSlider;
@@ -97,7 +101,7 @@ public class PlayerController {
     private JFXSlider equalizer1kSlider;
 
     @FXML
-    private JFXSlider equalizer270Slider;
+    private JFXSlider equalizer256Slider;
 
     @FXML
     private JFXSlider equalizer2kSlider;
@@ -112,7 +116,7 @@ public class PlayerController {
     private JFXSlider equalizer64Slider;
 
     @FXML
-    private JFXSlider equalizer650Slider;
+    private JFXSlider equalizer512Slider;
 
     @FXML
     private JFXSlider equalizer8kSlider;
@@ -151,7 +155,7 @@ public class PlayerController {
     private Label titleLabel;
 
     @FXML
-    private Label valueEqualizer130Label;
+    private Label valueEqualizer128Label;
 
     @FXML
     private Label valueEqualizer16kLabel;
@@ -160,7 +164,7 @@ public class PlayerController {
     private Label valueEqualizer1kLabel;
 
     @FXML
-    private Label valueEqualizer270Label;
+    private Label valueEqualizer256Label;
 
     @FXML
     private Label valueEqualizer2kLabel;
@@ -175,7 +179,7 @@ public class PlayerController {
     private Label valueEqualizer64Label;
 
     @FXML
-    private Label valueEqualizer650Label;
+    private Label valueEqualizer512Label;
 
     @FXML
     private Label valueEqualizer8kLabel;
@@ -196,7 +200,7 @@ public class PlayerController {
     @FXML
     void fileSearchMethod(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a .mp3/wav file", "*.mp3", "*.wav");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a .wav file", "*.wav");
         fileChooser.getExtensionFilters().add(filter);
         File file = fileChooser.showOpenDialog(null);
 
@@ -208,15 +212,27 @@ public class PlayerController {
 
         if (path != null){
             titleLabel.setText(getTitle(path));
-            /*
+            List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
+                    equalizer128Slider.getValue(), equalizer256Slider.getValue(),
+                    equalizer512Slider.getValue(), equalizer1kSlider.getValue(),
+                    equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
+                    equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
 
-            Kod do odtwarzania muzyki
-
-
-
-             */
-
-            changeToPause();
+            Player bartender = null;
+            try {
+                bartender = new Player(path.substring(6), amplifying, (int)volumeSlider.getValue());
+            } catch (UnsupportedAudioFileException | IOException e) {
+                e.printStackTrace();
+            }
+            Equalizer spy = bartender.getDj();
+            int minutes = (int) Math.floor(spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate() * 120));
+            int seconds = (int) ((spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate()))/2 - minutes*60);
+            if (seconds < 10) {
+                endTimeLabel.setText(minutes + ":0" + seconds);
+            } else {
+                String test = minutes + ":" + seconds;
+                endTimeLabel.setText(test);
+            }
         } else {
             System.out.println("Musisz wybrac plik.");
         }
@@ -262,13 +278,28 @@ public class PlayerController {
         } else {
             changeToPause();
         }
-
-
-        /*
-
-        Play stop
-
-         */
+        List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
+                equalizer128Slider.getValue(), equalizer256Slider.getValue(),
+                equalizer512Slider.getValue(), equalizer1kSlider.getValue(),
+                equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
+                equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
+        path = path.replace("%20", " ");
+        Player bartender = null;
+        try {
+            bartender = new Player(path.substring(6), amplifying, (int)volumeSlider.getValue());
+        } catch (UnsupportedAudioFileException | IOException e) {
+            e.printStackTrace();
+        }
+        Equalizer spy = bartender.getDj();
+        int minutes = (int) Math.floor(spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate() * 120));
+        int seconds = (int) ((spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate()))/2 - minutes*60);
+        if (seconds < 10) {
+            endTimeLabel.setText(minutes + ":0" + seconds);
+        } else {
+            String test = minutes + ":" + seconds;
+            endTimeLabel.setText(test);
+        }
+        bartender.play();
     }
 
     @FXML
@@ -283,12 +314,12 @@ public class PlayerController {
 
     @FXML
     void resetEqualizerMethod(ActionEvent event) {
-        JFXSlider[] namesOfSliders = {equalizer32Slider, equalizer64Slider, equalizer130Slider, equalizer270Slider,
-                equalizer650Slider, equalizer1kSlider, equalizer2kSlider, equalizer4kSlider,
+        JFXSlider[] namesOfSliders = {equalizer32Slider, equalizer64Slider, equalizer128Slider, equalizer256Slider,
+                equalizer512Slider, equalizer1kSlider, equalizer2kSlider, equalizer4kSlider,
                 equalizer8kSlider, equalizer16kSlider};
 
-        Label[] equalizerLabelValues = {valueEqualizer32Label, valueEqualizer64Label, valueEqualizer130Label, valueEqualizer270Label,
-                valueEqualizer650Label, valueEqualizer1kLabel, valueEqualizer2kLabel, valueEqualizer4kLabel,
+        Label[] equalizerLabelValues = {valueEqualizer32Label, valueEqualizer64Label, valueEqualizer128Label, valueEqualizer256Label,
+                valueEqualizer512Label, valueEqualizer1kLabel, valueEqualizer2kLabel, valueEqualizer4kLabel,
                 valueEqualizer8kLabel, valueEqualizer16kLabel};
 
         for (int z = 0; z < namesOfSliders.length; z++) {
@@ -300,12 +331,12 @@ public class PlayerController {
 
     @FXML
     void sliderValueMethod(MouseEvent event){
-        JFXSlider[] namesOfSliders = {equalizer32Slider, equalizer64Slider, equalizer130Slider, equalizer270Slider,
-                equalizer650Slider, equalizer1kSlider, equalizer2kSlider, equalizer4kSlider,
+        JFXSlider[] namesOfSliders = {equalizer32Slider, equalizer64Slider, equalizer128Slider, equalizer256Slider,
+                equalizer512Slider, equalizer1kSlider, equalizer2kSlider, equalizer4kSlider,
                 equalizer8kSlider, equalizer16kSlider};
 
-        Label[] equalizerLabelValues = {valueEqualizer32Label, valueEqualizer64Label, valueEqualizer130Label, valueEqualizer270Label,
-                valueEqualizer650Label, valueEqualizer1kLabel, valueEqualizer2kLabel, valueEqualizer4kLabel,
+        Label[] equalizerLabelValues = {valueEqualizer32Label, valueEqualizer64Label, valueEqualizer128Label, valueEqualizer256Label,
+                valueEqualizer512Label, valueEqualizer1kLabel, valueEqualizer2kLabel, valueEqualizer4kLabel,
                 valueEqualizer8kLabel, valueEqualizer16kLabel};
 
         String source = event.getSource().toString();

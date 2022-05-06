@@ -94,17 +94,17 @@
                               <Insets />
                            </opaqueInsets>
                         </JFXSlider>
-                        <JFXSlider fx:id="equalizer130Slider" blockIncrement="0.1" layoutX="50.0" layoutY="149.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="140.0">
+                        <JFXSlider fx:id="equalizer128Slider" blockIncrement="0.1" layoutX="50.0" layoutY="149.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="140.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                         </JFXSlider>
-                        <JFXSlider fx:id="equalizer270Slider" blockIncrement="0.1" layoutX="51.0" layoutY="179.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="165.0">
+                        <JFXSlider fx:id="equalizer256Slider" blockIncrement="0.1" layoutX="51.0" layoutY="179.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="165.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                         </JFXSlider>
-                        <JFXSlider fx:id="equalizer650Slider" blockIncrement="0.1" layoutX="51.0" layoutY="209.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="190.0">
+                        <JFXSlider fx:id="equalizer512Slider" blockIncrement="0.1" layoutX="51.0" layoutY="209.0" max="15.0" min="-15.0" minorTickCount="1" onMouseDragged="#sliderValueMethod" prefHeight="30.0" prefWidth="150.0" style="-jfx-default-thumb: #60d5FA;" value="1.0E-7" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="190.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -136,9 +136,9 @@
                         </JFXSlider>
                         <Label layoutX="21.0" layoutY="97.0" text="32" textFill="WHITE" />
                         <Label layoutX="21.0" layoutY="122.0" text="64" textFill="WHITE" />
-                        <Label layoutX="17.0" layoutY="147.0" text="130" textFill="WHITE" />
-                        <Label layoutX="17.0" layoutY="172.0" text="270" textFill="WHITE" />
-                        <Label layoutX="17.0" layoutY="197.0" text="650" textFill="WHITE" />
+                        <Label layoutX="17.0" layoutY="147.0" text="128" textFill="WHITE" />
+                        <Label layoutX="17.0" layoutY="172.0" text="256" textFill="WHITE" />
+                        <Label layoutX="17.0" layoutY="197.0" text="512" textFill="WHITE" />
                         <Label layoutX="21.0" layoutY="222.0" text="1k" textFill="WHITE" />
                         <Label layoutX="21.0" layoutY="247.0" text="2k" textFill="WHITE" />
                         <Label layoutX="21.0" layoutY="272.0" text="4k" textFill="WHITE" />
@@ -151,9 +151,9 @@
                         </Button>
                         <Label fx:id="valueEqualizer32Label" layoutX="225.0" layoutY="97.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
                         <Label fx:id="valueEqualizer64Label" layoutX="223.0" layoutY="122.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
-                        <Label fx:id="valueEqualizer130Label" layoutX="224.0" layoutY="147.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
-                        <Label fx:id="valueEqualizer270Label" layoutX="223.0" layoutY="172.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
-                        <Label fx:id="valueEqualizer650Label" layoutX="221.0" layoutY="197.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer128Label" layoutX="224.0" layoutY="147.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer256Label" layoutX="223.0" layoutY="172.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
+                        <Label fx:id="valueEqualizer512Label" layoutX="221.0" layoutY="197.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
                         <Label fx:id="valueEqualizer1kLabel" layoutX="227.0" layoutY="222.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
                         <Label fx:id="valueEqualizer2kLabel" layoutX="220.0" layoutY="249.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
                         <Label fx:id="valueEqualizer4kLabel" layoutX="225.0" layoutY="272.0" text="0" textFill="WHITE" AnchorPane.rightAnchor="25.0" />
@@ -168,7 +168,7 @@
       <ProgressBar fx:id="progressBar" layoutY="360.0" prefHeight="22.0" prefWidth="600.0" progress="0.44" stylesheets="@Style.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <AnchorPane layoutY="350.0" minWidth="150.0" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #4d4d4d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0">
          <children>
-            <Label fx:id="actualTimeLabel" layoutX="14.0" layoutY="17.0" text="00:26" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0">
+            <Label fx:id="actualTimeLabel" layoutX="14.0" layoutY="17.0" text="0:00" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -277,7 +277,7 @@
          <children>
             <Pane layoutY="25.0" prefHeight="76.0" prefWidth="200.0" style="-fx-background-color: #4d4d4d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="17.0">
                <children>
-                  <Label fx:id="endTimeLabel" layoutX="152.0" layoutY="15.0" text="00:26" textFill="WHITE">
+                  <Label fx:id="endTimeLabel" layoutX="152.0" layoutY="15.0" text="0:00" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
