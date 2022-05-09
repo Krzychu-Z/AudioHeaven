@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static com.example.wersja_3.PlayerController.nullCounter;
+
 public class Player extends Thread{
 
     private final Equalizer dj;
-    private final List<Double> amplifying;
+    private List<Double> amplifying;
     private int volume;
     Clip clip = null;
     boolean dummy = true;
@@ -22,6 +24,14 @@ public class Player extends Thread{
 
     public void playCheck(boolean info) {
         dummy = info;
+    }
+
+    public void setEqualise(List<Double> infoEq) {
+        amplifying = new ArrayList<>(infoEq);
+    }
+
+    public void setVolume(int infoVol) {
+        volume = infoVol;
     }
 
     public Equalizer getDj() {
@@ -68,6 +78,7 @@ public class Player extends Thread{
                 Thread.currentThread().interrupt();
             }
         }
+        nullCounter();
     }
 
     @Override

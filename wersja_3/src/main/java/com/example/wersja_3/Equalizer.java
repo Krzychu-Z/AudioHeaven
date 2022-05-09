@@ -17,7 +17,6 @@ public class Equalizer{
     DataHandler sampleReader;
     long nbSamples;
     double [] samples;
-    List<Double> amplifying;
 
     /*  This method is used to set basic parameters in order to manipulate audio data
         songName: OS path to the song in .wav extension
@@ -27,11 +26,6 @@ public class Equalizer{
         nbSamples = 2*sampleReader.getSampleCount();
         samples = new double[(int)nbSamples];
         sampleReader.getInterleavedSamples(0, nbSamples, samples);
-    }
-
-    //  Setter class used primarily to alter dB values live
-    public void setAmplifying (List<Double> sliderValues) {
-        amplifying = sliderValues;
     }
 
     /* Method responsible for delivering audio data to be live equalised

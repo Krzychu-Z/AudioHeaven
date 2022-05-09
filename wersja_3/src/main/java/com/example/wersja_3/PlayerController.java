@@ -28,7 +28,7 @@ public class PlayerController{
     private boolean isMute = false;
     private double volumeBeforeMute = 0;
     Player bartender = null;
-    private int counter = 0;
+    private static int counter = 0;
 
     public void changeToPlay() {
         Image play = new Image(Objects.requireNonNull(getClass().getResourceAsStream("play.png")));
@@ -76,6 +76,10 @@ public class PlayerController{
         }
         
         return title;
+    }
+
+    public static void nullCounter() {
+        counter = 0;
     }
 
     @FXML
@@ -212,6 +216,10 @@ public class PlayerController{
             System.out.println("Ściezka nie moze byc pusta.");
         }
 
+        if (path.contains("%20")) {
+            path = path.replace("%20", " ");
+        }
+
         if (path != null){
             titleLabel.setText(getTitle(path));
             List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
@@ -262,9 +270,16 @@ public class PlayerController{
     void muteMethod(ActionEvent event) {
         if (isMute) {
             changeToVolume();
+            bartender.setVolume((int) volumeSlider.getValue());
         } else {
             changeToMute();
+            bartender.setVolume(0);
         }
+    }
+
+    @FXML
+    void changeVolumeMethod() {
+        bartender.setVolume((int) volumeSlider.getValue());
     }
 
     @FXML
@@ -316,6 +331,14 @@ public class PlayerController{
             equalizerLabelValues[z].setText("0");
 
         }
+
+        List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
+                equalizer128Slider.getValue(), equalizer256Slider.getValue(),
+                equalizer512Slider.getValue(), equalizer1kSlider.getValue(),
+                equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
+                equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
+
+        bartender.setEqualise(amplifying);
     }
 
     @FXML
@@ -349,6 +372,14 @@ public class PlayerController{
                 equalizerLabelValues[z].setText(roundedValued);
             }
         }
+
+        List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
+                equalizer128Slider.getValue(), equalizer256Slider.getValue(),
+                equalizer512Slider.getValue(), equalizer1kSlider.getValue(),
+                equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
+                equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
+
+        bartender.setEqualise(amplifying);
     }
 
 
