@@ -27,6 +27,8 @@ public class PlayerController{
     private boolean isPlaying = false;
     private boolean isMute = false;
     private double volumeBeforeMute = 0;
+    Player bartender = null;
+    private int counter = 0;
 
     public void changeToPlay() {
         Image play = new Image(Objects.requireNonNull(getClass().getResourceAsStream("play.png")));
@@ -218,7 +220,6 @@ public class PlayerController{
                     equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
                     equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
 
-            Player bartender = null;
             try {
                 bartender = new Player(path.substring(6), amplifying, (int)volumeSlider.getValue());
             } catch (UnsupportedAudioFileException | IOException e) {
@@ -271,35 +272,23 @@ public class PlayerController{
         System.out.println("test");
     }
 
+
     @FXML
     void playMethod(ActionEvent event) {
+
         if (isPlaying) {
             changeToPlay();
+            bartender.playCheck(isPlaying);
         } else {
             changeToPause();
+            bartender.playCheck(isPlaying);
+
+            if (counter == 0) {
+                bartender.start();
+                counter++;
+            }
         }
-        List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
-                equalizer128Slider.getValue(), equalizer256Slider.getValue(),
-                equalizer512Slider.getValue(), equalizer1kSlider.getValue(),
-                equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
-                equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
-        path = path.replace("%20", " ");
-        Player bartender = null;
-        try {
-            bartender = new Player(path.substring(6), amplifying, (int)volumeSlider.getValue());
-        } catch (UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
-        }
-        Equalizer spy = bartender.getDj();
-        int minutes = (int) Math.floor(spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate() * 120));
-        int seconds = (int) ((spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate()))/2 - minutes*60);
-        if (seconds < 10) {
-            endTimeLabel.setText(minutes + ":0" + seconds);
-        } else {
-            String test = minutes + ":" + seconds;
-            endTimeLabel.setText(test);
-        }
-        bartender.play();
+
     }
 
     @FXML
