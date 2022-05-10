@@ -40,23 +40,11 @@ public class Player extends Thread{
     }
 
     public void rewind() {
-        //if (it - 8 >= 0) {
-            it = it - 8;
-            //play = false;
-            //clip.stop();
-            //play = true;
-            //clip.start();
-        //} else {
-            //replay();
-        //}
+        it = it - 8;
     }
 
     public void forward() {
         it = it + 8;
-        //play = false;
-        //clip.stop();
-        //play = true;
-        //clip.start();
     }
 
     public void setVolume(int infoVol) {
