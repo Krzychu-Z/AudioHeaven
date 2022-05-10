@@ -13,7 +13,8 @@ public class Player extends Thread{
     private List<Double> amplifying;
     private int volume;
     Clip clip = null;
-    boolean dummy = true;
+    boolean play = true;
+    int it;
 
     public Player(String songName, List<Double> amplifyingValues, int volumePassed) throws UnsupportedAudioFileException, IOException {
         dj = new Equalizer();
@@ -23,11 +24,39 @@ public class Player extends Thread{
     }
 
     public void playCheck(boolean info) {
-        dummy = info;
+        play = info;
     }
 
     public void setEqualise(List<Double> infoEq) {
         amplifying = new ArrayList<>(infoEq);
+    }
+
+    public void replay() {
+        it = -1;
+        play = false;
+        clip.stop();
+        play = true;
+        clip.start();
+    }
+
+    public void rewind() {
+        //if (it - 8 >= 0) {
+            it = it - 8;
+            //play = false;
+            //clip.stop();
+            //play = true;
+            //clip.start();
+        //} else {
+            //replay();
+        //}
+    }
+
+    public void forward() {
+        it = it + 8;
+        //play = false;
+        //clip.stop();
+        //play = true;
+        //clip.start();
     }
 
     public void setVolume(int infoVol) {
@@ -43,8 +72,8 @@ public class Player extends Thread{
         final File outFile = new File("out.wav");
         final int placeHold = line.size();
         AudioInputStream stream;
-        for (int i = 0; i < placeHold; i++) {
-            double [][] pointing = line.get(i);
+        for (it = 0; it < placeHold; it++) {
+            double [][] pointing = line.get(it);
             double [] result = dj.equaliseMe(pointing, amplifying, (int)dj.sampleReader.getFormat().getSampleRate(), volume);
 
             AudioWriter audioWriter;
@@ -59,12 +88,12 @@ public class Player extends Thread{
                 AudioFormat format;
                 DataLine.Info info;
                 stream = AudioSystem.getAudioInputStream(outFile);
-                if (i != 0) {
+                if (it != 0) {
                     while (clip.getMicrosecondLength() != clip.getMicrosecondPosition()) {
                         // Do nothing
                     }
                 }
-                while (!dummy) {
+                while (!play) {
                     // Do nothing
                 }
                 format = stream.getFormat();

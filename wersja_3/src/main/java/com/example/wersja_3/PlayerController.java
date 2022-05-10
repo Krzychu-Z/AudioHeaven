@@ -1,6 +1,7 @@
 package com.example.wersja_3;
 
 import com.jfoenix.controls.JFXSlider;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +30,14 @@ public class PlayerController{
     private double volumeBeforeMute = 0;
     Player bartender = null;
     private static int counter = 0;
+    public int minutesCountDown = 0;
+    public int secondsCountDown = -1;
+    public boolean poke = false;
+    private int timeCounter = 0;
+    private long begin;
+    private Thread thrd;
+    int minutesLong = 0;
+    int secondsLong = 0;
 
     public void changeToPlay() {
         Image play = new Image(Objects.requireNonNull(getClass().getResourceAsStream("play.png")));
@@ -83,7 +92,7 @@ public class PlayerController{
     }
 
     @FXML
-    private Label actualTimeLabel;
+    private Label actualTimeLabel = new Label();
 
     @FXML
     private Button addPlaylistButton;
@@ -200,7 +209,16 @@ public class PlayerController{
 
     @FXML
     void back10Method(ActionEvent event) {
-        System.out.println("test");
+        bartender.rewind();
+        if (minutesCountDown == 0 && secondsCountDown - 10 < 0) {
+            secondsCountDown = 0;
+        } else if (secondsCountDown - 10 < 0) {
+            secondsCountDown = secondsCountDown - 10;
+            secondsCountDown = 60 + secondsCountDown;
+            minutesCountDown--;
+        } else {
+            secondsCountDown = secondsCountDown - 10;
+        }
     }
 
     @FXML
@@ -209,6 +227,10 @@ public class PlayerController{
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a .wav file", "*.wav");
         fileChooser.getExtensionFilters().add(filter);
         File file = fileChooser.showOpenDialog(null);
+
+        if (bartender != null) {
+            bartender.interrupt();
+        }
 
         try {
             path = file.toURI().toString();
@@ -234,12 +256,12 @@ public class PlayerController{
                 e.printStackTrace();
             }
             Equalizer spy = bartender.getDj();
-            int minutes = (int) Math.floor(spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate() * 120));
-            int seconds = (int) ((spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate()))/2 - minutes*60);
-            if (seconds < 10) {
-                endTimeLabel.setText(minutes + ":0" + seconds);
+            minutesLong = (int) Math.floor(spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate() * 120));
+            secondsLong = (int) ((spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate()))/2 - minutesLong *60);
+            if (secondsLong < 10) {
+                endTimeLabel.setText(minutesLong + ":0" + secondsLong);
             } else {
-                String test = minutes + ":" + seconds;
+                String test = minutesLong + ":" + secondsLong;
                 endTimeLabel.setText(test);
             }
         } else {
@@ -249,7 +271,15 @@ public class PlayerController{
 
     @FXML
     void forward10Method(ActionEvent event) {
-        System.out.println("test");
+        bartender.forward();
+        if (secondsCountDown + 10 >= 60) {
+            secondsCountDown = secondsCountDown - 60;
+            minutesCountDown++;
+        } else if (minutesCountDown == minutesLong && secondsCountDown == secondsLong) {
+            bartender.replay();
+        } else {
+            secondsCountDown = secondsCountDown + 10;
+        }
     }
 
     @FXML
@@ -277,6 +307,71 @@ public class PlayerController{
         }
     }
 
+    public void setTime() {
+        if (actualTimeLabel.getText().equals(endTimeLabel.getText())) {
+            secondsCountDown = 0;
+            minutesCountDown = 0;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    changeToPlay();
+                    actualTimeLabel.setText(minutesCountDown + ":0" + secondsCountDown);
+                    progressBar.setProgress(0.0);
+                }
+            });
+            stopCountDown();
+        } else {
+            if (secondsCountDown == 60) {
+                secondsCountDown = 0;
+                minutesCountDown++;
+            } else {
+                secondsCountDown++;
+            }
+            double frac = (double) (minutesCountDown*60 + secondsCountDown)/(minutesLong*60 + secondsLong);
+
+            if (secondsCountDown < 10) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        actualTimeLabel.setText(minutesCountDown + ":0" + secondsCountDown);
+                        progressBar.setProgress(frac);
+                    }
+                });
+            } else {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        actualTimeLabel.setText(minutesCountDown + ":" + secondsCountDown);
+                        progressBar.setProgress(frac);
+                    }
+                });
+            }
+        }
+    }
+
+    public void startCountDown() {
+        thrd = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        Thread.sleep(1000);
+                        setTime();
+                    }
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+                return;
+            }
+        });
+        thrd.start();
+    }
+
+    @SuppressWarnings("deprecation")
+    public void stopCountDown() {
+        thrd.stop();
+    }
+
     @FXML
     void changeVolumeMethod() {
         bartender.setVolume((int) volumeSlider.getValue());
@@ -294,9 +389,11 @@ public class PlayerController{
         if (isPlaying) {
             changeToPlay();
             bartender.playCheck(isPlaying);
+            stopCountDown();
         } else {
             changeToPause();
             bartender.playCheck(isPlaying);
+            startCountDown();
 
             if (counter == 0) {
                 bartender.start();
@@ -313,7 +410,9 @@ public class PlayerController{
 
     @FXML
     void repeatMethod(ActionEvent event) {
-        System.out.println("test");
+        bartender.replay();
+        secondsCountDown = 0;
+        minutesCountDown = 0;
     }
 
     @FXML
@@ -381,6 +480,4 @@ public class PlayerController{
 
         bartender.setEqualise(amplifying);
     }
-
-
 }

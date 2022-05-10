@@ -165,7 +165,7 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <ProgressBar fx:id="progressBar" layoutY="360.0" prefHeight="22.0" prefWidth="600.0" progress="0.44" stylesheets="@Style.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <ProgressBar fx:id="progressBar" layoutY="360.0" prefHeight="22.0" prefWidth="600.0" progress="0.0" stylesheets="@Style.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <AnchorPane layoutY="350.0" minWidth="150.0" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #4d4d4d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0">
          <children>
             <Label fx:id="actualTimeLabel" layoutX="14.0" layoutY="17.0" text="0:00" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0">
@@ -180,7 +180,7 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="250.0">
                            <children>
                               <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="6.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0" />
-                              <Label fx:id="titleLabel" prefHeight="29.0" prefWidth="231.0" text="TitleTitleTitleTitleTitleTitleTitleTitle" textFill="#60d5fa" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="10.0">
+                              <Label fx:id="titleLabel" prefHeight="29.0" prefWidth="231.0"  textFill="#60d5fa" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="10.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
