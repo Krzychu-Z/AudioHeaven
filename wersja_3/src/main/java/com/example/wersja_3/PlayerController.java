@@ -1,6 +1,7 @@
 package com.example.wersja_3;
 
 import com.jfoenix.controls.JFXSlider;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +28,16 @@ public class PlayerController{
     private boolean isPlaying = false;
     private boolean isMute = false;
     private double volumeBeforeMute = 0;
+    Player bartender = null;
+    private static int counter = 0;
+    public int minutesCountDown = 0;
+    public int secondsCountDown = -1;
+    public boolean poke = false;
+    private int timeCounter = 0;
+    private long begin;
+    private Thread thrd;
+    int minutesLong = 0;
+    int secondsLong = 0;
 
     public void changeToPlay() {
         Image play = new Image(Objects.requireNonNull(getClass().getResourceAsStream("play.png")));
@@ -67,8 +78,12 @@ public class PlayerController{
         return title;
     }
 
+    public static void nullCounter() {
+        counter = 0;
+    }
+
     @FXML
-    private Label actualTimeLabel;
+    private Label actualTimeLabel = new Label();
 
     @FXML
     private Button addPlaylistButton;
@@ -185,7 +200,16 @@ public class PlayerController{
 
     @FXML
     void back10Method(ActionEvent event) {
-        System.out.println("test");
+        bartender.rewind();
+        if (minutesCountDown == 0 && secondsCountDown - 10 < 0) {
+            secondsCountDown = 0;
+        } else if (secondsCountDown - 10 < 0) {
+            secondsCountDown = secondsCountDown - 10;
+            secondsCountDown = 60 + secondsCountDown;
+            minutesCountDown--;
+        } else {
+            secondsCountDown = secondsCountDown - 10;
+        }
     }
 
     @FXML
@@ -195,10 +219,18 @@ public class PlayerController{
         fileChooser.getExtensionFilters().add(filter);
         File file = fileChooser.showOpenDialog(null);
 
+        if (bartender != null) {
+            bartender.interrupt();
+        }
+
         try {
             path = file.toURI().toString();
         } catch (Exception w) {
             System.out.println("Ściezka nie moze byc pusta.");
+        }
+
+        if (path.contains("%20")) {
+            path = path.replace("%20", " ");
         }
 
         if (path != null){
@@ -209,19 +241,18 @@ public class PlayerController{
                     equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
                     equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
 
-            Player bartender = null;
             try {
                 bartender = new Player(path.substring(6), amplifying, (int)volumeSlider.getValue());
             } catch (UnsupportedAudioFileException | IOException e) {
                 e.printStackTrace();
             }
             Equalizer spy = bartender.getDj();
-            int minutes = (int) Math.floor(spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate() * 120));
-            int seconds = (int) ((spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate()))/2 - minutes*60);
-            if (seconds < 10) {
-                endTimeLabel.setText(minutes + ":0" + seconds);
+            minutesLong = (int) Math.floor(spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate() * 120));
+            secondsLong = (int) ((spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate()))/2 - minutesLong *60);
+            if (secondsLong < 10) {
+                endTimeLabel.setText(minutesLong + ":0" + secondsLong);
             } else {
-                String test = minutes + ":" + seconds;
+                String test = minutesLong + ":" + secondsLong;
                 endTimeLabel.setText(test);
             }
         } else {
@@ -231,7 +262,15 @@ public class PlayerController{
 
     @FXML
     void forward10Method(ActionEvent event) {
-        System.out.println("test");
+        bartender.forward();
+        if (secondsCountDown + 10 >= 60) {
+            secondsCountDown = secondsCountDown - 60;
+            minutesCountDown++;
+        } else if (minutesCountDown == minutesLong && secondsCountDown == secondsLong) {
+            bartender.replay();
+        } else {
+            secondsCountDown = secondsCountDown + 10;
+        }
     }
 
     @FXML
@@ -252,9 +291,81 @@ public class PlayerController{
     void muteMethod(ActionEvent event) {
         if (isMute) {
             changeToVolume();
+            bartender.setVolume((int) volumeSlider.getValue());
         } else {
             changeToMute();
+            bartender.setVolume(0);
         }
+    }
+
+    public void setTime() {
+        if (actualTimeLabel.getText().equals(endTimeLabel.getText())) {
+            secondsCountDown = 0;
+            minutesCountDown = 0;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    changeToPlay();
+                    actualTimeLabel.setText(minutesCountDown + ":0" + secondsCountDown);
+                    progressBar.setProgress(0.0);
+                }
+            });
+            stopCountDown();
+        } else {
+            if (secondsCountDown == 60) {
+                secondsCountDown = 0;
+                minutesCountDown++;
+            } else {
+                secondsCountDown++;
+            }
+            double frac = (double) (minutesCountDown*60 + secondsCountDown)/(minutesLong*60 + secondsLong);
+
+            if (secondsCountDown < 10) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        actualTimeLabel.setText(minutesCountDown + ":0" + secondsCountDown);
+                        progressBar.setProgress(frac);
+                    }
+                });
+            } else {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        actualTimeLabel.setText(minutesCountDown + ":" + secondsCountDown);
+                        progressBar.setProgress(frac);
+                    }
+                });
+            }
+        }
+    }
+
+    public void startCountDown() {
+        thrd = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        Thread.sleep(1000);
+                        setTime();
+                    }
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+                return;
+            }
+        });
+        thrd.start();
+    }
+
+    @SuppressWarnings("deprecation")
+    public void stopCountDown() {
+        thrd.stop();
+    }
+
+    @FXML
+    void changeVolumeMethod() {
+        bartender.setVolume((int) volumeSlider.getValue());
     }
 
     @FXML
@@ -262,35 +373,25 @@ public class PlayerController{
         System.out.println("test");
     }
 
+
     @FXML
     void playMethod(ActionEvent event) {
+
         if (isPlaying) {
             changeToPlay();
+            bartender.playCheck(isPlaying);
+            stopCountDown();
         } else {
             changeToPause();
+            bartender.playCheck(isPlaying);
+            startCountDown();
+
+            if (counter == 0) {
+                bartender.start();
+                counter++;
+            }
         }
-        List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
-                equalizer128Slider.getValue(), equalizer256Slider.getValue(),
-                equalizer512Slider.getValue(), equalizer1kSlider.getValue(),
-                equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
-                equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
-        path = path.replace("%20", " ");
-        Player bartender = null;
-        try {
-            bartender = new Player(path.substring(6), amplifying, (int)volumeSlider.getValue());
-        } catch (UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
-        }
-        Equalizer spy = bartender.getDj();
-        int minutes = (int) Math.floor(spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate() * 120));
-        int seconds = (int) ((spy.nbSamples/(spy.sampleReader.getFormat().getSampleRate()))/2 - minutes*60);
-        if (seconds < 10) {
-            endTimeLabel.setText(minutes + ":0" + seconds);
-        } else {
-            String test = minutes + ":" + seconds;
-            endTimeLabel.setText(test);
-        }
-        bartender.play();
+
     }
 
     @FXML
@@ -300,7 +401,9 @@ public class PlayerController{
 
     @FXML
     void repeatMethod(ActionEvent event) {
-        System.out.println("test");
+        bartender.replay();
+        secondsCountDown = 0;
+        minutesCountDown = 0;
     }
 
     @FXML
@@ -313,6 +416,13 @@ public class PlayerController{
                 valueEqualizer512Label, valueEqualizer1kLabel, valueEqualizer2kLabel, valueEqualizer4kLabel,
                 valueEqualizer8kLabel, valueEqualizer16kLabel};
 
+        List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
+                equalizer128Slider.getValue(), equalizer256Slider.getValue(),
+                equalizer512Slider.getValue(), equalizer1kSlider.getValue(),
+                equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
+                equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
+
+        bartender.setEqualise(amplifying);
     }
 
     @FXML
@@ -346,7 +456,13 @@ public class PlayerController{
                 equalizerLabelValues[z].setText(roundedValued);
             }
         }
+
+        List<Double> amplifying = new ArrayList<>(List.of(equalizer32Slider.getValue(), equalizer64Slider.getValue(),
+                equalizer128Slider.getValue(), equalizer256Slider.getValue(),
+                equalizer512Slider.getValue(), equalizer1kSlider.getValue(),
+                equalizer2kSlider.getValue(), equalizer4kSlider.getValue(),
+                equalizer8kSlider.getValue(), equalizer16kSlider.getValue()));
+
+        bartender.setEqualise(amplifying);
     }
-
-
 }
